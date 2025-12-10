@@ -8,25 +8,22 @@
 //   #import "src/lib.typ": *
 //   #show: td.with(title: "Mon TD", course: "Algo")
 //
-// WHAT'S EXPORTED:
-//   - td()          : Main document template
-//   - colors        : Color definitions (see colors.typ)
-//   - question()    : Auto-numbered question box
-//   - response()    : Answer box
-//   - cmd()         : Command box
-//   - important()   : Warning box
-//   - tip()         : Tip box
-//   - info()        : Info box
-//   - requirement() : Prerequisites box
-//   - result()      : Result box
-//   - scope()       : Scope box
-//   - example()     : Example box
-//   - ... and more (see components/boxes.typ)
-//
 // =============================================================================
 
 // Re-export colors
 #import "colors.typ": colors, catppuccin, box-colors
+
+// Re-export config (for advanced customization)
+#import "config.typ": (
+  icons,
+  titles,
+  question-format,
+  titlepage-labels,
+  date-format,
+  lang-presets,
+  format-question-num,
+  format-date,
+)
 
 // Re-export all boxes
 #import "components/boxes.typ": *
@@ -38,21 +35,44 @@
 // MAIN TEMPLATE
 // =============================================================================
 
-/// Main document template
+/// Main document template for TD/TP documents.
 ///
-/// Parameters:
-/// - title        : Document title (required)
-/// - subtitle     : Optional subtitle
-/// - course       : Course name (default: "EPITA")
-/// - term         : Academic term (e.g., "S7")
-/// - authors      : List of author names
-/// - group        : Group identifier (e.g., "C1")
-/// - date         : Document date (default: today)
-/// - logo         : Logo content (use `image("path")`) or path string
-/// - confidentiality : e.g., "TLP:AMBER"
-/// - header-left  : Left header (default: course)
-/// - header-right : Right header (default: date)
-/// - lang         : Document language (default: "fr")
+/// This template sets up the entire document with proper typography,
+/// headers, title page, and styling for educational content.
+///
+/// ```example
+/// #import "src/lib.typ": *
+///
+/// #show: td.with(
+///   title: "Introduction to Algorithms",
+///   subtitle: "TD 1 - Sorting",
+///   course: "EPITA",
+///   term: "S7",
+///   authors: ("John Doe",),
+///   group: "C1",
+/// )
+///
+/// = First Section
+/// #question[What is an algorithm?]
+/// #response[An algorithm is...]
+/// ```
+///
+/// - title (str, content): Document title.
+/// - subtitle (str, content, none): Optional subtitle.
+/// - course (str): Course or institution name.
+/// - term (str, none): Academic term (e.g., "S7").
+/// - authors (array): List of author names.
+/// - group (str, none): Group identifier.
+/// - date (datetime, str): Document date.
+/// - logo (content, str, none): Logo image or path.
+/// - confidentiality (str, none): Confidentiality notice.
+/// - header-left (auto, str, content): Left header content.
+/// - header-right (auto, str, content): Right header content.
+/// - lang (str): Document language code.
+/// - titlepage-labels (auto, dictionary): Override title page labels.
+/// - date-fmt (str): Date format string.
+/// - body (content): Document content.
+/// -> content
 #let td(
   title: "Document",
   subtitle: none,
@@ -66,6 +86,8 @@
   header-left: auto,
   header-right: auto,
   lang: "fr",
+  titlepage-labels: auto,
+  date-fmt: date-format,
   body,
 ) = {
   // ---------------------------------------------------------------------------
@@ -73,9 +95,7 @@
   // ---------------------------------------------------------------------------
   let header-l = if header-left == auto { course } else { header-left }
   let header-r = if header-right == auto {
-    if type(date) == datetime {
-      date.display("[day]/[month]/[year]")
-    } else { date }
+    format-date(date, format: date-fmt)
   } else { header-right }
 
   // ---------------------------------------------------------------------------
@@ -182,6 +202,8 @@
     date: date,
     logo: logo-content,
     confidentiality: confidentiality,
+    labels: titlepage-labels,
+    date-fmt: date-fmt,
   )
 
   counter(page).update(1)

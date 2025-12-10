@@ -8,14 +8,17 @@
 // QUICK CUSTOMIZATION:
 // - Change `catppuccin` values to use different base colors
 // - Change `colors` mappings to reassign semantic meanings
+//
 // =============================================================================
 
 // -----------------------------------------------------------------------------
-// BASE PALETTE (Catppuccin Mocha)
+// BASE PALETTE (Catppuccin Macchiato)
 // -----------------------------------------------------------------------------
-// Feel free to replace these with your own colors.
-// Format: rgb("#RRGGBB")
 
+/// Base color palette using Catppuccin Macchiato theme.
+/// Replace these values with your own colors if desired.
+///
+/// -> dictionary
 #let catppuccin = (
   text:     rgb("#24273a"),  // Dark text color
   base:     rgb("#1e1e2e"),  // Background
@@ -36,11 +39,17 @@
 // -----------------------------------------------------------------------------
 // SEMANTIC COLORS
 // -----------------------------------------------------------------------------
-// Maps purpose to color. Change these to customize box colors.
-//
-// Example: To make questions green instead of blue:
-//   question: catppuccin.green,
 
+/// Semantic color mappings for document elements.
+/// Maps purpose to actual color values.
+///
+/// To customize box colors, change the color assignments here.
+/// Example: To make questions green instead of blue:
+/// ```typst
+/// question: catppuccin.green,
+/// ```
+///
+/// -> dictionary
 #let colors = (
   question:    catppuccin.blue,      // Question boxes
   response:    catppuccin.green,     // Answer boxes
@@ -59,16 +68,34 @@
 // COLOR UTILITIES
 // -----------------------------------------------------------------------------
 
-/// Generate box color scheme from a base color
-/// Returns: (bg: light background, border: darker border, title-bg: title bar)
+/// Generate a color scheme for boxes from a base accent color.
+/// Returns a dictionary with `bg`, `border`, and `title-bg` colors.
+///
+/// ```example
+/// #let scheme = box-colors(rgb("#8aadf4"))
+/// // scheme.bg       -> light background
+/// // scheme.border   -> darker border
+/// // scheme.title-bg -> title bar background
+/// ```
+///
+/// - base-color (color): The accent color to derive the scheme from.
+/// -> dictionary
 #let box-colors(base-color) = (
   bg:       base-color.lighten(85%),
   border:   base-color.darken(20%),
   title-bg: base-color.lighten(70%),
 )
 
-/// Lighten a color by a percentage
+/// Lighten a color by a percentage.
+///
+/// - color (color): The color to lighten.
+/// - amount (ratio): Percentage to lighten (e.g., 50%).
+/// -> color
 #let lighten(color, amount) = color.lighten(amount)
 
-/// Darken a color by a percentage
+/// Darken a color by a percentage.
+///
+/// - color (color): The color to darken.
+/// - amount (ratio): Percentage to darken (e.g., 20%).
+/// -> color
 #let darken(color, amount) = color.darken(amount)
