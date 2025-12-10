@@ -1,0 +1,15 @@
+[package]
+name = "epita-td"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Hugo Sibony"]
+license = "MIT"
+description = "Template for EPITA TD (Travaux Dirigés) documents with colored boxes, auto-numbered questions, and professional styling."
+repository = "https://github.com/KazeTachinuu/epita-td"
+keywords = ["template", "education", "french", "td", "epita"]
+categories = ["report", "paper"]
+
+[template]
+path = "main.typ"
+entrypoint = "src/lib.typ"
+thumbnail = "thumbnail.png"
