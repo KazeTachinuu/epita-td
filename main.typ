@@ -21,6 +21,7 @@
   group: "C1",
   logo: image("images/epita-logo.png", width: 6cm),
   confidentiality: "TLP:AMBER",
+  toc: true,
   // --- Optional overrides ---
   // lang: "en",
   // date-fmt: "[month repr:long] [day], [year]",

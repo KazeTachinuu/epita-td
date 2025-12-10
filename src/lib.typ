@@ -50,6 +50,7 @@
 ///   term: "S7",
 ///   authors: ("John Doe",),
 ///   group: "C1",
+///   toc: true,
 /// )
 ///
 /// = First Section
@@ -71,6 +72,7 @@
 /// - lang (str): Document language code.
 /// - titlepage-labels (auto, dictionary): Override title page labels.
 /// - date-fmt (str): Date format string.
+/// - toc (bool): Whether to show table of contents.
 /// - body (content): Document content.
 /// -> content
 #let td(
@@ -88,6 +90,7 @@
   lang: "fr",
   titlepage-labels: auto,
   date-fmt: date-format,
+  toc: false,
   body,
 ) = {
   // ---------------------------------------------------------------------------
@@ -207,6 +210,18 @@
   )
 
   counter(page).update(1)
+
+  // ---------------------------------------------------------------------------
+  // TABLE OF CONTENTS
+  // ---------------------------------------------------------------------------
+  if toc {
+    outline(
+      title: if lang == "fr" { "Table des matières" } else { "Table of Contents" },
+      indent: auto,
+      depth: 3,
+    )
+    pagebreak()
+  }
 
   // ---------------------------------------------------------------------------
   // BODY
