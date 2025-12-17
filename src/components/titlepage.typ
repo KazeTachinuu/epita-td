@@ -136,7 +136,11 @@
             columns: (80pt, 1fr),
             gutter: 8pt,
             text(weight: "semibold", fill: luma(60))[#lbl.authors],
-            text(fill: colors.text)[#authors.join(", ")],
+            text(fill: colors.text)[
+              #for author in authors {
+                [#author \ ]
+              }
+            ],
           )
         }
 

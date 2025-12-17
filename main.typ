@@ -17,7 +17,7 @@
   subtitle: "TD 1 - Prise en main",
   course: "EPITA",
   term: "APPING2 S7",
-  authors: ("Hugo Sibony",),
+  authors: ("Hugo Sibony", "Jules Aubert", "Léa Bonet"),
   group: "C1",
   logo: image("images/epita-logo.png", width: 6cm),
   confidentiality: "TLP:AMBER",
