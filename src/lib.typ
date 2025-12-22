@@ -132,7 +132,7 @@
   // TYPOGRAPHY
   // ---------------------------------------------------------------------------
   set text(
-    font: "New Computer Modern",
+    font: "Inter",
     size: 11pt,
     lang: lang,
     fill: colors.text,
@@ -145,11 +145,14 @@
   // ---------------------------------------------------------------------------
   set heading(numbering: "1.1")
 
-  show heading.where(level: 1): it => block(breakable: false)[
-    #v(0.8em)
-    #text(size: 1.3em, weight: "bold", fill: colors.text)[#it]
-    #v(0.4em)
-  ]
+  show heading.where(level: 1): it => {
+    pagebreak(weak: true)
+    block(breakable: false)[
+      #v(0.8em)
+      #text(size: 1.3em, weight: "bold", fill: colors.text)[#it]
+      #v(0.4em)
+    ]
+  }
 
   show heading.where(level: 2): it => block(breakable: false)[
     #v(0.6em)
@@ -168,7 +171,7 @@
   // ---------------------------------------------------------------------------
   // CODE BLOCKS
   // ---------------------------------------------------------------------------
-  show raw: set text(font: "DejaVu Sans Mono", size: 0.85em)
+  show raw: set text(font: "JetBrains Mono", size: 0.85em)
 
   show raw.where(block: true): it => block(
     width: 100%,
@@ -176,6 +179,7 @@
     stroke: 0.5pt + luma(200),
     radius: 3pt,
     inset: 10pt,
+    breakable: false,
     it
   )
 
